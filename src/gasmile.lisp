@@ -1,16 +1,20 @@
 (defpackage #:gasmile
   (:use #:cl
+        #:hunchentoot
+        #:hunchentools
         #:gasmile.layout))
 
 
 (in-package #:gasmile)
 
-(defvar *app* (make-instance 'ningle:app))
+(defvar *app* nil)
 
-(setf (ningle:route *app* "/")
-      #'(lambda (params)
-          (main-layout)))
+(define-easy-handler (root :uri "/") ()
+  (with-main-layout))
 
-(defun run-app ()
-  (clack:clackup *app*))
+(defun start-web-server (&optional (port 8080))
+  (when *app*
+    (stop *app* :soft t))
+  (setf *app* (make-instance 'easy-acceptor :port port))
+  (start *app*))
 

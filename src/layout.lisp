@@ -1,11 +1,11 @@
 (defpackage #:gasmile.layout
   (:use #:cl
         #:spinneret)
-  (:export #:main-layout))
+  (:export #:with-main-layout))
 
 (in-package #:gasmile.layout)
 
-(defmacro main-layout (&body body)
+(defmacro with-main-layout (&body body)
   `(spinneret:with-html-string
      (:doctype)
      (:html
