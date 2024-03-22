@@ -1,0 +1,20 @@
+(defpackage #:gasmile.layout
+  (:use #:cl
+        #:spinneret)
+  (:export #:main-layout))
+
+(in-package #:gasmile.layout)
+
+(defmacro main-layout (&body body)
+  `(spinneret:with-html-string
+     (:doctype)
+     (:html
+      (:head
+       (:meta :charset "utf-8")
+       (:meta :name "viewport" :content "width=device-width, initial-scale=1")
+       (:script :src "https://unpkg.com/htmx.org@1.9.11")
+       (:link :rel "stylesheet" :href "https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" :integrity "sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" :crossorigin "anonymous")
+       (:script :src "https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" :integrity "sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" :crossorigin "anonymous"))
+
+      (:body
+       (:p "Hello World")))))

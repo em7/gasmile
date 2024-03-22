@@ -6,8 +6,8 @@
   :depends-on (#:ningle #:clack #:spinneret)
   :in-order-to ((test-op (test-op :gasmile/tests)))
   :components ((:module "src"
-                :components ((:file "package")
-                             (:file "gasmile")))))
+                :components ((:file "layout")
+                             (:file "gasmile" :depends-on  ("layout"))))))
 
 (asdf:defsystem #:gasmile/tests
   :author "em7 <mm007.emko@gmail.com>"
