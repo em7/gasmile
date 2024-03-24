@@ -16,10 +16,15 @@
 
 (defun stop-web-server ()
   (when *app*
-    (stop *app* :soft t)))
+    (progn (stop *app* :soft t)
+           (setf *app* nil))))
 
-(defun start-web-server (&optional (port 8080))
+(defun start-web-server (&optional
+                           (port 8080)
+                           (document-root (uiop:merge-pathnames* #p "../static")))
   (stop-web-server)
-  (setf *app* (make-instance 'easy-acceptor :port port))
+  (setf *app* (make-instance 'easy-acceptor
+                             :port port
+                             :document-root document-root))
   (start *app*))
 
