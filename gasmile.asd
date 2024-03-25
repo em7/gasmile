@@ -3,7 +3,12 @@
   :author "em7 <mm007.emko@gmail.com>"
   :license  "Specify license here"
   :version "0.0.1"
-  :depends-on (#:hunchentoot #:hunchentools #:spinneret #:parenscript)
+  :depends-on (#:hunchentoot
+               #:hunchentools
+               #:spinneret
+               #:parenscript
+               #:alexandria
+               #:serapeum)
   :in-order-to ((test-op (test-op :gasmile/tests)))
   :components ((:module "src"
                 :components ((:file "layout")
