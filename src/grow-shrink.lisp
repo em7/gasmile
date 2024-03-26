@@ -2,7 +2,7 @@
   (:use #:cl
         #:spinneret
         #:parenscript)
-  (:export #:with-main-layout))
+  (:export #:add-shrinkable-to))
 
 (in-package #:gasmile.grow-shrink)
 
@@ -31,15 +31,14 @@
                            (chain e (remove-event-listener "animationend" ,fnname))
                            (setf (@ e style display) "block")))))))))
 
-(defmacro add-shrinkable-to (shrinkable-class selector)
-  "Generates javascript code for adding shrinkable CSS class (string)
-   to elements selectable by CSS `selector` (string)
+(defmacro add-shrinkable-to (shrinkable-class unshrinkable-class selector)
+  "Generates javascript code for adding shrinkable and unshrinkable 
+   CSS classes (string) to elements selectable by CSS `selector` (string)
    and generates associated javascript functions."
   (let* ((on-shrinked-fname (concatenate 'string "on_shrinked_" (string (gensym))))
          (on-unshrinked-fname (format nil "on_unshrinked_~A" (gensym))))
     `(let ((on-shrinked-js (on-shrinked ,on-shrinked-fname ,selector))
            (on-unshrinked-js (on-unshrinked ,on-unshrinked-fname ,selector)))
-q       
 
        (format nil "~{~A~%~%~}" (list on-shrinked-js
                                       on-unshrinked-js)))))

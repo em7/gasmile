@@ -1,7 +1,8 @@
 (defpackage #:gasmile.layout
   (:use #:cl
         #:spinneret
-        #:parenscript)
+        #:parenscript
+        #:gasmile.grow-shrink)
   (:export #:with-main-layout))
 
 (in-package #:gasmile.layout)
@@ -59,6 +60,9 @@
       (:script :src "https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" :integrity "sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" :crossorigin "anonymous")
       
 
+      (:script
+       :type "text/javascript"
+       (:raw (add-shrinkable-to "grow" "shrink" ".nav-shrinkable")))
       ;; (:script
       ;;  :type "text/javascript"
       ;;  (:raw (ps (defun toggle-sidebar ()
