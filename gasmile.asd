@@ -11,7 +11,8 @@
                #:serapeum)
   :in-order-to ((test-op (test-op :gasmile/tests)))
   :components ((:module "src"
-                :components ((:file "layout")
+                :components ((:file "grow-shrink")
+                             (:file "layout" :depends-on ("grow-shrink"))
                              (:file "gasmile" :depends-on  ("layout"))))))
 
 (asdf:defsystem #:gasmile/tests
