@@ -28,17 +28,20 @@
        (:nav
         :id "sidebar"
         :class "d-flex flex-column flex-shrink-0 p-3 text-bg-dark vh-100"
-        :style "width: 280px;"
+
+        
 
         (:div
+         :id "sidebar-big"
          :class "d-flex justify-content-between align-items-center"
 
+         ;; (:button
+         ;;  :class "btn btn-light"
+         ;;  :onclick (:raw (ps (toggle-sidebar)))
+         ;;  (:i
+         ;;   :class "fas fa-bars"))
          (:h1 "Hello World")
-         (:button
-          :class "btn btn-light"
-          :onclick (:raw (ps (toggle-sidebar)))
-          (:i
-           :class "fas fa-bars"))
+         
          ))
        
 
@@ -54,10 +57,11 @@
 
       (:script :src "https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" :integrity "sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" :crossorigin "anonymous")
 
-      (:script
-       :type "text/javascript"
-       (:raw (ps (defun toggle-sidebar ()
-                   (let ((sidebar (chain document (get-element-by-id "sidebar"))))
-                     (chain sidebar class-list (toggle "d-none")))))))))))
+      ;; (:script
+      ;;  :type "text/javascript"
+      ;;  (:raw (ps (defun toggle-sidebar ()
+      ;;              (let ((sidebar (chain document (get-element-by-id "sidebar"))))
+      ;;                (chain sidebar class-list (toggle "d-none")))))))
+      ))))
 
 
