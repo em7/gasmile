@@ -6,30 +6,43 @@
 
 (in-package #:gasmile.grow-shrink)
 
-(defmacro on-shrinked (selector)
-  "Creates an event listener for elements selectable by CSS `selector` (string).
+(defmacro on-shrinked (fn-name selector)
+  "Creates an event listener, a function of `fn-name` for
+   elements selectable by CSS `selector` (string).
    The event listener sets `display: none;` and removes the listener."
-  (let ((fn-name (read-from-string (concatenate 'string "on_shrinked_" (string (gensym))))))
-    `(ps (defun ,fn-name ()
-           (let ((elms (chain document (query-selector-all ,selector))))
-             (chain elms (for-each
-                          (lambda (e)
-                            (chain e (remove-event-listener "animationend" ,fn-name))
-                            (setf (@ e style display) "none")))))))))
+  (let ((fnname (read-from-string fn-name)))
+    `(ps (defun ,fnname ()
+          (let ((elms (chain document (query-selector-all ,selector))))
+            (chain elms (for-each
+                         (lambda (e)
+                           (chain e (remove-event-listener "animationend" ,fnname))
+                           (setf (@ e style display) "none")))))))))
 
 
-(defmacro on-unshrinked (selector)
-  "Creates an event listener for elements selectable by CSS `selector` (string).
+(defmacro on-unshrinked (fn-name selector)
+  "Creates an event listener, a function of `fn-name` for
+    elements selectable by CSS `selector` (string).
    The event listener sets `display: block;` and removes the listener."
-  (let ((fn-name (read-from-string (concatenate 'string "on_unshrinked_" (string (gensym))))))
-    `(ps (defun ,fn-name ()
-           (let ((elms (chain document (query-selector-all ,selector))))
-             (chain elms (for-each
-                          (lambda (e)
-                            (chain e (remove-event-listener "animationend" ,fn-name))
-                            (setf (@ e style display) "block")))))))))
+  (let ((fnname (read-from-string fn-name)))
+    `(ps (defun ,fnname ()
+          (let ((elms (chain document (query-selector-all ,selector))))
+            (chain elms (for-each
+                         (lambda (e)
+                           (chain e (remove-event-listener "animationend" ,fnname))
+                           (setf (@ e style display) "block")))))))))
 
+(defmacro add-shrinkable-to (shrinkable-class selector)
+  "Generates javascript code for adding shrinkable CSS class (string)
+   to elements selectable by CSS `selector` (string)
+   and generates associated javascript functions."
+  (let* ((on-shrinked-fname (concatenate 'string "on_shrinked_" (string (gensym))))
+         (on-unshrinked-fname (format nil "on_unshrinked_~A" (gensym))))
+    `(let ((on-shrinked-js (on-shrinked ,on-shrinked-fname ,selector))
+           (on-unshrinked-js (on-unshrinked ,on-unshrinked-fname ,selector)))
+q       
 
+       (format nil "~{~A~%~%~}" (list on-shrinked-js
+                                      on-unshrinked-js)))))
 
 ;; TODO
 ;; document.addEventListener("DOMContentLoaded", function() {
