@@ -44,7 +44,7 @@
 
        (:article
         :id "main-section"
-        :class  "container d-flex flex-column text-bg-light vw-100"
+        :class  "container-fluid d-flex flex-column text-bg-light vw-100"
         
 
         (:section
