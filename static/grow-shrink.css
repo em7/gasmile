@@ -1,0 +1,36 @@
+/* Grow and Shrink animations */
+
+@keyframes shrink-animate {
+    from {
+        transform: scaleX(1);
+        transform-origin: right;
+    }
+    to {
+        transform: scaleX(0.1);
+    }
+}
+
+@keyframes grow-animate {
+    from {
+        transform: scaleX(0.1);
+        transform-origin: left;
+    }
+    to {
+        transform: scaleX(1);
+    }
+}
+
+.shrink-animate {
+    animation-name: shrink-animate;
+    animation-duration: 0.5s;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+}
+
+.grow-animate {
+    animation-name: grow-animate;
+    animation-duration: 0.5s;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+}
+
